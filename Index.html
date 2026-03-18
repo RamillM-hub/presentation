@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Руслан & Анастасия — Свадьба</title>
+<meta name="description" content="Руслан и Анастасия — приглашаем на нашу свадьбу 01.06.2026" />
+<link rel="stylesheet" href="styles.css">
+<!-- Google Fonts (пример) -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="hero" id="home">
+    <div class="overlay"></div>
+    <div class="hero-inner">
+     <h1>Руслан & Анастасия</h1>
+     <p class="date">01 июня 2026 — Мы женимся</p>
+     <div id="countdown" class="countdown"></div>
+     <a href="#rsvp" class="btn">Подтвердить присутствие</a>
+    </div>
+</header>
+
+<main>
+    <section class="section about" id="about">
+     <div class="container">
+        <h2>Наша история</h2>
+        <p>Короткий красивый текст о том, как вы познакомились. Замените этот текст на ваш.</p>
+     </div>
+    </section>
+
+    <section class="section events" id="events">
+     <div class="container">
+        <h2>Программа дня</h2>
+        <div class="event-item">
+         <h3>Церемония</h3>
+         <p>01 июня 2026, 14:00 — Храм / Зал, ул. Примерная, 10</p>
+        </div>
+        <div class="event-item">
+         <h3>Банкет</h3>
+         <p>После церемонии — Ресторан «Пример», ул. Банкетная, 5</p>
+        </div>
+        <div class="map-wrap">
+         <!-- Замените src на ваш embed из Google Maps -->
+         <iframe src="https://www.google.com/maps/embed?pb=!1m18!... (ваш embed)" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+     </div>
+    </section>
+
+    <section class="section gallery" id="gallery">
+     <div class="container">
+        <h2>Галерея</h2>
+        <div class="grid">
+         <!-- замените src на ваши фотографии -->
+         <img src="images/photo1.jpg" alt="Фото 1">
+         <img src="images/photo2.jpg" alt="Фото 2">
+         <img src="images/photo3.jpg" alt="Фото 3">
+        </div>
+     </div>
+    </section>
+
+    <section class="section gifts" id="gifts">
+     <div class="container">
+        <h2>Подарки / реестр</h2>
+        <p>Если хотите подарить деньги — карта: <strong>1234 5678 9012 3456</strong></p>
+        <p>Или посмотрите наш реестр: <a href="#" target="_blank">ссылка на реестр</a></p>
+     </div>
+    </section>
+
+    <section class="section rsvp" id="rsvp">
+     <div class="container">
+        <h2>Подтвердить присутствие</h2>
+        <!-- Пример формы на Formspree — замените action на ваш Formspree endpoint -->
+        <form id="rsvpForm" action="https://formspree.io/f/your-id" method="POST">
+         <label>Имя и фамилия
+            <input type="text" name="name" required>
+         </label>
+         <label>Приходите?
+            <select name="attend" required>
+             <option value="">Выберите...</option>
+             <option value="yes">Да — приду</option>
+             <option value="no">К сожалению, нет</option>
+            </select>
+         </label>
+         <label>Количество гостей
+            <input type="number" name="guests" min="0" value="0">
+         </label>
+         <label>Сообщение / пожелание
+            <textarea name="message" rows="3"></textarea>
+         </label>
+         <button type="submit" class="btn">Отправить</button>
+        </form>
+        <p id="formMsg" class="form-msg"></p>
+     </div>
+    </section>
+
+    <section class="section contacts" id="contacts">
+     <div class="container">
+        <h2>Контакты</h2>
+        <p>Связаться: +7 (900) 000-00-00 — Ольга (организатор)</p>
+     </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+     <p>© Руслан & Анастасия, 2026</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
