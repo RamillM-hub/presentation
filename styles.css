@@ -1,0 +1,28 @@
+:root{
+--accent:#b5715a;
+--bg:#f8f7f5;
+--text:#222;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Arial; color:var(--text); margin:0; background:var(--bg); line-height:1.5}
+.container{max-width:980px;margin:0 auto;padding:40px 20px}
+.hero{height:70vh;min-height:480px;background:url('images/hero.jpg') center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;color:#fff}
+.hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55))}
+.hero-inner{position:relative;text-align:center;padding:20px}
+.hero h1{font-family:'Playfair Display',serif;font-size:48px;margin:0}
+.date{margin:10px 0 20px;font-weight:600}
+.btn{display:inline-block;padding:12px 22px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none}
+.section{padding:60px 0;background:#fff;margin-top:20px;border-radius:12px}
+.about p{max-width:760px}
+.events .event-item{margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.grid img{width:100%;height:200px;object-fit:cover;border-radius:8px}
+.rsvp form{display:grid;gap:12px;max-width:600px}
+.rsvp label{display:block}
+.rsvp input,.rsvp select,.rsvp textarea{width:100%;padding:10px;border-radius:6px;border:1px solid #ddd}
+.form-msg{color:green;margin-top:10px}
+.footer{padding:18px 0;text-align:center;color:#666}
+@media (max-width:600px){
+.hero h1{font-size:32px}
+.hero{height:60vh}
+}
