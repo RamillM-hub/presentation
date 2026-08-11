@@ -1,112 +1,530 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Рамиль & Мадина — Никах</title>
-<meta name="description" content="Рамиль и Мадина — приглашаем на наш никах 21.06.2026" />
-<link rel="stylesheet" href="styles.css">
-<!-- Google Fonts (пример) -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ЭлектроОптима — Приложение «Заказ-наряд»</title>
+<style>
+  :root{
+    --ink:#2E3A47;
+    --ink-2:#3A4856;
+    --accent:#2EA9E8;
+    --accent-tint:#EAF7FE;
+    --bg:#F7F9FB;
+    --card:#FFFFFF;
+    --secondary:#6B7684;
+    --separator:#E5E5EA;
+    --sf: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sf);color:var(--ink);background:var(--bg);line-height:1.5;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+  section{padding:88px 0;}
+  h1,h2,h3{letter-spacing:-0.02em;color:var(--ink);}
+  .eyebrow{
+    font-size:12.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px;
+  }
+  .section-title{font-size:32px;font-weight:800;margin-bottom:14px;}
+  .section-sub{font-size:16px;color:var(--secondary);max-width:640px;margin-bottom:48px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--accent);color:#fff;text-decoration:none;
+    font-weight:700;font-size:15px;padding:14px 26px;border-radius:14px;
+    box-shadow:0 10px 24px rgba(46,169,232,0.32);
+  }
+  .btn-ghost{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#fff;color:var(--ink);text-decoration:none;border:1.5px solid var(--separator);
+    font-weight:700;font-size:15px;padding:13px 24px;border-radius:14px;
+  }
+
+  /* ---------------- Header / Hero ---------------- */
+  header.hero{
+    background:linear-gradient(180deg,#212B36 0%, var(--ink) 100%);
+    color:#fff;
+    padding:56px 0 100px;
+    position:relative;
+    overflow:hidden;
+  }
+  .top-brand{display:flex;align-items:center;gap:10px;margin-bottom:56px;}
+  .logo-mark{
+    width:30px;height:30px;border-radius:50%;
+    border:4px solid var(--accent); border-left-color:rgba(255,255,255,0.75); border-bottom-color:rgba(255,255,255,0.75);
+    flex-shrink:0;
+  }
+  .top-brand span{font-weight:700;font-size:17px;letter-spacing:0.01em;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center;}
+  .hero-copy .eyebrow{color:#7FD4F7;}
+  .hero-copy h1{font-size:42px;font-weight:800;line-height:1.15;margin-bottom:18px;color:#fff;}
+  .hero-copy p{font-size:16.5px;color:rgba(255,255,255,0.72);max-width:480px;margin-bottom:30px;}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px;}
+  .hero-features{display:flex;flex-direction:column;gap:14px;}
+  .hero-feature{display:flex;gap:12px;align-items:flex-start;}
+  .hero-feature .dot{
+    width:22px;height:22px;border-radius:50%;background:rgba(46,169,232,0.18);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
+  }
+  .hero-feature .dot svg{width:12px;height:12px;}
+  .hero-feature span{font-size:14.5px;color:rgba(255,255,255,0.85);}
+
+  /* Phone mockups */
+  .phones-row{display:flex;justify-content:center;gap:20px;position:relative;}
+  .phone{
+    width:220px;height:452px;border-radius:44px;
+    background:#0b0d10;
+    border:7px solid #0b0d10;
+    box-shadow:0 30px 60px rgba(0,0,0,0.45), inset 0 0 0 2px rgba(255,255,255,0.06);
+    position:relative;overflow:hidden;flex-shrink:0;
+  }
+  .phone:nth-child(2){transform:translateY(-18px) scale(1.06);z-index:2;}
+  .phone:nth-child(1){transform:rotate(-4deg) translateY(10px);}
+  .phone:nth-child(3){transform:rotate(4deg) translateY(10px);}
+  .phone .island{
+    position:absolute;top:10px;left:50%;transform:translateX(-50%);
+    width:80px;height:22px;background:#0b0d10;border-radius:14px;z-index:5;
+  }
+  .phone .screen{width:100%;height:100%;background:#F2F2F7;display:flex;flex-direction:column;font-family:var(--sf);}
+
+  /* mini app UI reused from the real app's visual language */
+  .mini-nav{padding:30px 14px 8px;background:rgba(242,242,247,0.9);flex-shrink:0;}
+  .mini-nav .t{font-size:10px;color:var(--secondary);text-align:center;font-weight:600;}
+  .mini-track{height:2px;background:var(--separator);margin-top:8px;}
+  .mini-track span{display:block;height:100%;width:55%;background:var(--accent);}
+  .mini-body{padding:10px 14px;flex:1;}
+  .mini-brand{display:flex;align-items:center;gap:5px;color:var(--ink);font-size:9px;font-weight:700;margin-bottom:6px;}
+  .mini-brand .dot2{width:9px;height:9px;border-radius:50%;border:2px solid var(--accent);border-left-color:var(--ink);border-bottom-color:var(--ink);}
+  .mini-title{font-size:18px;font-weight:800;color:var(--ink);margin-bottom:10px;}
+  .mini-card{background:#fff;border-radius:9px;overflow:hidden;margin-bottom:8px;}
+  .mini-row{padding:8px 10px;font-size:10.5px;color:var(--ink);border-top:0.5px solid var(--separator);display:flex;justify-content:space-between;}
+  .mini-row:first-child{border-top:none;}
+  .mini-row.sel{color:var(--accent);font-weight:700;}
+  .mini-field-cap{font-size:8px;color:var(--secondary);padding:8px 10px 0;}
+  .mini-field-val{font-size:11px;color:var(--ink);padding:2px 10px 9px;}
+  .mini-btn{margin:auto 10px 14px;background:var(--accent);color:#fff;text-align:center;font-size:11px;font-weight:700;padding:9px;border-radius:9px;}
+  .mini-check{width:34px;height:34px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin:26px auto 10px;}
+  .mini-check svg{width:16px;height:16px;}
+  .mini-done-title{font-size:13px;font-weight:800;text-align:center;color:var(--ink);}
+  .mini-done-sub{font-size:9px;color:var(--secondary);text-align:center;margin-top:4px;padding:0 14px;}
+
+  /* ---------------- Advantages ---------------- */
+  .adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .adv-card{background:var(--card);border-radius:18px;padding:26px 24px;box-shadow:0 4px 20px rgba(46,58,71,0.06);}
+  .adv-card .ic{
+    width:44px;height:44px;border-radius:12px;background:var(--accent-tint);
+    display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  }
+  .adv-card .ic svg{width:22px;height:22px;}
+  .adv-card h3{font-size:16.5px;font-weight:700;margin-bottom:8px;}
+  .adv-card p{font-size:13.5px;color:var(--secondary);line-height:1.55;}
+
+  /* ---------------- Instructions ---------------- */
+  .instr{background:#fff;}
+  .instr-step{display:grid;grid-template-columns:120px 1fr 220px;gap:32px;align-items:center;padding:34px 0;border-bottom:1px solid var(--separator);}
+  .instr-step:last-child{border-bottom:none;}
+  .instr-num{font-size:40px;font-weight:800;color:var(--accent-tint);color:#D9EFFB;line-height:1;}
+  .instr-copy h3{font-size:18px;font-weight:700;margin-bottom:8px;}
+  .instr-copy p{font-size:14px;color:var(--secondary);line-height:1.6;}
+  .instr-copy code{background:var(--accent-tint);color:var(--ink);padding:2px 7px;border-radius:6px;font-size:12.5px;}
+  .mini-phone{
+    width:160px;height:328px;border-radius:30px;background:#0b0d10;border:5px solid #0b0d10;
+    box-shadow:0 14px 30px rgba(0,0,0,0.18);position:relative;overflow:hidden;justify-self:end;
+  }
+  .mini-phone .island{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:58px;height:16px;background:#0b0d10;border-radius:10px;z-index:5;}
+  .mini-phone .screen{width:100%;height:100%;background:#F2F2F7;}
+
+  /* Home-screen mockup */
+  .home-screen{background:linear-gradient(160deg,#3a4a5c,#232d38);width:100%;height:100%;padding:40px 14px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px 10px;}
+  .home-icon{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .home-icon .sq{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.14);}
+  .home-icon .sq.app{background:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,0.3);}
+  .home-icon .sq.app .dot3{width:14px;height:14px;border-radius:50%;border:2.4px solid var(--accent);border-left-color:#fff;border-bottom-color:#fff;}
+  .home-icon span{font-size:6.5px;color:rgba(255,255,255,0.8);text-align:center;}
+
+  /* Share sheet mockup */
+  .share-screen{background:rgba(0,0,0,0.35);width:100%;height:100%;display:flex;align-items:flex-end;}
+  .share-sheet{background:#fff;width:100%;border-radius:16px 16px 0 0;padding:14px 12px 18px;}
+  .share-sheet .h{font-size:9px;font-weight:700;text-align:center;color:var(--secondary);margin-bottom:10px;}
+  .share-row{display:flex;align-items:center;gap:8px;padding:7px 4px;font-size:9.5px;color:var(--ink);}
+  .share-row .ic2{width:18px;height:18px;border-radius:5px;background:var(--accent-tint);flex-shrink:0;}
+  .share-row.hi{background:var(--accent-tint);border-radius:8px;font-weight:700;color:var(--accent);}
+
+  /* ---------------- Sheet mockup ---------------- */
+  .sheet-wrap{background:#fff;border-radius:16px;box-shadow:0 6px 24px rgba(46,58,71,0.08);overflow:hidden;}
+  .sheet-topbar{background:#F5F6F8;border-bottom:1px solid var(--separator);padding:12px 16px;display:flex;align-items:center;gap:10px;}
+  .sheet-topbar .g-ic{width:20px;height:20px;border-radius:4px;background:#0F9D58;flex-shrink:0;}
+  .sheet-topbar .name{font-size:13px;font-weight:600;color:var(--ink);}
+  .sheet-scroll{overflow-x:auto;}
+  table.sheet{border-collapse:collapse;width:100%;font-size:12px;}
+  table.sheet th{
+    background:#F5F6F8;color:var(--secondary);font-weight:600;text-align:left;
+    padding:9px 12px;border:1px solid var(--separator);white-space:nowrap;
+  }
+  table.sheet td{padding:9px 12px;border:1px solid var(--separator);white-space:nowrap;color:var(--ink);}
+  table.sheet tr:nth-child(even) td{background:#FAFBFC;}
+
+  /* ---------------- Roadmap ---------------- */
+  .roadmap{background:var(--ink);color:#fff;border-radius:24px;padding:52px 44px;}
+  .roadmap .section-title, .roadmap .eyebrow{color:#fff;}
+  .roadmap .eyebrow{color:#7FD4F7;}
+  .roadmap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;}
+  .roadmap-card{background:rgba(255,255,255,0.06);border-radius:16px;padding:22px 20px;border:1px solid rgba(255,255,255,0.08);}
+  .roadmap-card .stage{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;}
+  .roadmap-card h3{font-size:15.5px;font-weight:700;margin-bottom:8px;color:#fff;}
+  .roadmap-card p{font-size:13px;color:rgba(255,255,255,0.68);line-height:1.55;}
+
+  /* ---------------- Brand note / footer ---------------- */
+  .brand-note{display:flex;align-items:center;gap:20px;background:#fff;border-radius:18px;padding:26px 28px;box-shadow:0 4px 20px rgba(46,58,71,0.06);}
+  .swatch-row{display:flex;gap:8px;}
+  .swatch{width:34px;height:34px;border-radius:9px;flex-shrink:0;}
+  footer{padding:40px 0;text-align:center;color:var(--secondary);font-size:13px;}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .phones-row{margin-top:40px;}
+    .adv-grid{grid-template-columns:1fr;}
+    .instr-step{grid-template-columns:1fr;text-align:left;}
+    .instr-num{display:none;}
+    .mini-phone{justify-self:start;margin-top:12px;}
+    .roadmap{padding:36px 22px;}
+    .roadmap-grid{grid-template-columns:1fr;}
+    .brand-note{flex-direction:column;align-items:flex-start;}
+  }
+</style>
 </head>
 <body>
-<header class="hero" id="home">
-    <div class="overlay"></div>
-    <div class="hero-inner">
-     <h1>Рамиль & Мадина</h1>
-     <p class="date">21 июня 2026 — Мы женимся</p>
-     <div id="countdown" class="countdown"></div>
-     <a href="#rsvp" class="btn">Подтвердить присутствие</a>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top-brand"><span class="logo-mark"></span><span>ЭлектроОптима</span></div>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">Мобильное приложение</div>
+        <h1>Заказ-наряд — прямо с телефона, без бумаги и Telegram</h1>
+        <p>Приложение заменяет ручное заполнение заказ-нарядов: сотрудник вводит данные на телефоне, они мгновенно и без ошибок попадают в общую Google Таблицу.</p>
+        <div class="hero-actions">
+          <a class="btn" href="https://ramillm-hub.github.io/app_zakaz_naryad/" target="_blank" rel="noopener">Открыть приложение →</a>
+          <a class="btn-ghost" href="#instruction">Смотреть инструкцию</a>
+        </div>
+        <div class="hero-features">
+          <div class="hero-feature"><span class="dot"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5L10 17.5L19 7" stroke="#7FD4F7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Работает как обычное приложение — иконка на главном экране</span></div>
+          <div class="hero-feature"><span class="dot"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5L10 17.5L19 7" stroke="#7FD4F7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Данные сразу в Google Таблице — без промежуточных шагов</span></div>
+          <div class="hero-feature"><span class="dot"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5L10 17.5L19 7" stroke="#7FD4F7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>ФИО и должность вводятся один раз при регистрации</span></div>
+        </div>
+      </div>
+      <div class="phones-row">
+        <div class="phone">
+          <div class="island"></div>
+          <div class="screen">
+            <div class="mini-nav"><div class="t">Тип оборудования</div><div class="mini-track"><span></span></div></div>
+            <div class="mini-body">
+              <div class="mini-brand"><span class="dot2"></span>ЭлектроОптима</div>
+              <div class="mini-title">Оборудование</div>
+              <div class="mini-card">
+                <div class="mini-row sel">ТП</div>
+                <div class="mini-row">РУНН 0,4 кВ</div>
+                <div class="mini-row">РУСН 6–20 кВ</div>
+                <div class="mini-row">Прочие</div>
+              </div>
+            </div>
+            <div class="mini-btn">Далее</div>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="island"></div>
+          <div class="screen">
+            <div class="mini-nav"><div class="t">Проверка</div><div class="mini-track"><span style="width:95%"></span></div></div>
+            <div class="mini-body">
+              <div class="mini-brand"><span class="dot2"></span>ЭлектроОптима</div>
+              <div class="mini-title" style="font-size:15px;">Проверьте данные</div>
+              <div class="mini-card">
+                <div class="mini-row"><span>Исполнитель</span><span>Муртазин Р.Н.</span></div>
+                <div class="mini-row"><span>Заказ</span><span>7024</span></div>
+                <div class="mini-row"><span>Оборуд.</span><span>БКТП</span></div>
+                <div class="mini-row"><span>Время</span><span>2,5 часа</span></div>
+              </div>
+            </div>
+            <div class="mini-btn">Подтвердить</div>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="island"></div>
+          <div class="screen">
+            <div class="mini-body" style="padding-top:60px;">
+              <div class="mini-brand" style="justify-content:center;"><span class="dot2"></span>ЭлектроОптима</div>
+              <div class="mini-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5L10 17.5L19 7" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mini-done-title">Операция добавлена</div>
+              <div class="mini-done-sub">Заказ 7024 сохранён в таблице</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </header>
 
-<main>
-    <section class="section about" id="about">
-     <div class="container">
-        <h2>Наша история</h2>
-        <p>Короткий красивый текст о том, как вы познакомились. Замените этот текст на ваш.</p>
-     </div>
-    </section>
-
-    <section class="section events" id="events">
-     <div class="container">
-        <h2>Программа дня</h2>
-        <div class="event-item">
-         <h3>Церемония</h3>
-         <p>21 июня 2026, 14:00 — Мечеть "Ярдем" </p>
-        </div>
-        <div class="event-item">
-         <h3>Банкет</h3>
-         <p>После церемонии — Ресторан «Пример», ул. Банкетная, 5</p>
-        </div>
-        <div class="map-wrap">
-         <!-- Замените src на ваш embed из Google Maps -->
-         <iframe src="https://www.google.com/maps/embed?pb=!1m18!... (ваш embed)" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-     </div>
-    </section>
-
-    <section class="section gallery" id="gallery">
-     <div class="container">
-        <h2>Галерея</h2>
-        <div class="grid">
-         <!-- замените src на ваши фотографии -->
-         <img src="photo1.jpg" alt="Фото 1">
-         <img src="photo2.jpg" alt="Фото 2">
-         <img src="photo3.jpg" alt="Фото 3">
-        </div>
-     </div>
-    </section>
-
-    <section class="section gifts" id="gifts">
-     <div class="container">
-        <h2>Подарки / реестр</h2>
-        <p>Если хотите подарить деньги — карта: <strong>1234 5678 9012 3456</strong></p>
-        <p>Или посмотрите наш реестр: <a href="#" target="_blank">ссылка на реестр</a></p>
-     </div>
-    </section>
-
-    <section class="section rsvp" id="rsvp">
-     <div class="container">
-        <h2>Подтвердить присутствие</h2>
-        <!-- Пример формы на Formspree — замените action на ваш Formspree endpoint -->
-        <form id="rsvpForm" action="https://formspree.io/f/your-id" method="POST">
-         <label>Имя и фамилия
-            <input type="text" name="name" required>
-         </label>
-         <label>Приходите?
-            <select name="attend" required>
-             <option value="">Выберите...</option>
-             <option value="yes">Да — приду</option>
-             <option value="no">К сожалению, нет</option>
-            </select>
-         </label>
-         <label>Количество гостей
-            <input type="number" name="guests" min="0" value="0">
-         </label>
-         <label>Сообщение / пожелание
-            <textarea name="message" rows="3"></textarea>
-         </label>
-         <button type="submit" class="btn">Отправить</button>
-        </form>
-        <p id="formMsg" class="form-msg"></p>
-     </div>
-    </section>
-
-    <section class="section contacts" id="contacts">
-     <div class="container">
-        <h2>Контакты</h2>
-        <p>Связаться: +7 (900) 000-00-00 — Ольга (организатор)</p>
-     </div>
-    </section>
-</main>
-
-<footer class="footer">
-    <div class="container">
-     <p>© Рамиль & Мадина, 2026</p>
+<!-- ================= ПРЕИМУЩЕСТВА ================= -->
+<section id="advantages">
+  <div class="wrap">
+    <div class="eyebrow">Зачем это внедрять</div>
+    <h2 class="section-title">Преимущества приложения</h2>
+    <p class="section-sub">Тот же процесс, что и раньше с Telegram-ботом, но быстрее, надёжнее и в фирменном виде компании.</p>
+    <div class="adv-grid">
+      <div class="adv-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke="#2EA9E8" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h3>Быстрее заполнения</h3>
+        <p>Пошаговая форма с крупными кнопками и подсказками — сотрудник не тратит время на форматирование сообщений, как раньше в боте.</p>
+      </div>
+      <div class="adv-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="#2EA9E8" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#2EA9E8" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Данные без искажений</h3>
+        <p>Тип и подтип оборудования выбираются из готового списка — исключены опечатки и разночтения в названиях, которые раньше приходилось чистить вручную.</p>
+      </div>
+      <div class="adv-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v6M12 16v6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M2 12h6M16 12h6M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2" stroke="#2EA9E8" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Прямая запись в таблицу</h3>
+        <p>Ни бота, ни посредника — форма пишет строку сразу в Google Таблицу через защищённый скрипт, в реальном времени.</p>
+      </div>
+      <div class="adv-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8.2" r="3.4" stroke="#2EA9E8" stroke-width="1.8"/><path d="M4.8 19c1.2-3.4 4-5.2 7.2-5.2s6 1.8 7.2 5.2" stroke="#2EA9E8" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Профиль сотрудника</h3>
+        <p>ФИО и должность указываются один раз при первом запуске. В таблицу автоматически подставляется сокращённая форма: Муртазин Р.Н.</p>
+      </div>
+      <div class="adv-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="3" stroke="#2EA9E8" stroke-width="1.8"/><path d="M9 19h6" stroke="#2EA9E8" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Как настоящее приложение</h3>
+        <p>Устанавливается на главный экран одним касанием — открывается на весь экран, без строки браузера, со своей иконкой.</p>
+      </div>
+      <div class="adv-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20l4-4M4 20v-4h4M20 4l-4 4M20 4h-4v4M4 4l4 4M4 4v4h4M20 20l-4-4M20 20v-4h-4" stroke="#2EA9E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Готово к развитию</h3>
+        <p>Форма — только первый слой системы. Логика легко расширяется новыми полями, экранами и отчётами без переделки с нуля.</p>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- ================= ИНСТРУКЦИЯ ================= -->
+<section id="instruction" class="instr">
+  <div class="wrap">
+    <div class="eyebrow">Пошагово</div>
+    <h2 class="section-title">Как пользоваться приложением</h2>
+    <p class="section-sub">От установки иконки на телефон до готовой строки в таблице — весь путь занимает пару минут.</p>
+
+    <div class="instr-step">
+      <div class="instr-num">01</div>
+      <div class="instr-copy">
+        <h3>Откройте ссылку на телефоне</h3>
+        <p>В браузере телефона (Safari на iPhone или Chrome на Android) откройте адрес <code>ramillm-hub.github.io/app_zakaz_naryad</code>. Приложение откроется как обычная веб-страница — это нормально, дальше превратим её в иконку.</p>
+      </div>
+      <div class="mini-phone">
+        <div class="island"></div>
+        <div class="screen" style="display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;padding:0 16px;">
+            <div class="mini-brand" style="justify-content:center;margin-bottom:14px;"><span class="dot2"></span>ЭлектроОптима</div>
+            <div style="font-size:11px;color:var(--ink);font-weight:700;">Заказ-наряд</div>
+            <div style="font-size:8px;color:var(--secondary);margin-top:4px;">ramillm-hub.github.io</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="instr-step">
+      <div class="instr-num">02</div>
+      <div class="instr-copy">
+        <h3>Добавьте на главный экран</h3>
+        <p><strong>iPhone:</strong> нажмите кнопку «Поделиться» внизу экрана Safari → «На экран Домой» → «Добавить».<br><strong>Android:</strong> нажмите меню «⋮» в Chrome → «Добавить на главный экран».</p>
+      </div>
+      <div class="mini-phone">
+        <div class="island"></div>
+        <div class="screen"><div class="share-screen"><div class="share-sheet">
+          <div class="h">Поделиться</div>
+          <div class="share-row"><span class="ic2"></span>Сообщения</div>
+          <div class="share-row"><span class="ic2"></span>Почта</div>
+          <div class="share-row hi"><span class="ic2" style="background:#fff;"></span>На экран «Домой»</div>
+          <div class="share-row"><span class="ic2"></span>Скопировать</div>
+        </div></div></div>
+      </div>
+    </div>
+
+    <div class="instr-step">
+      <div class="instr-num">03</div>
+      <div class="instr-copy">
+        <h3>Готово — иконка на рабочем столе</h3>
+        <p>На главном экране появится иконка «Заказ-наряд» в фирменных цветах компании. Дальше приложение открывается одним касанием, как любое другое.</p>
+      </div>
+      <div class="mini-phone">
+        <div class="island"></div>
+        <div class="screen"><div class="home-screen">
+          <div class="home-icon"><div class="sq"></div><span>Safari</span></div>
+          <div class="home-icon"><div class="sq"></div><span>Почта</span></div>
+          <div class="home-icon"><div class="sq app"><span class="dot3"></span></div><span>Заказ-наряд</span></div>
+          <div class="home-icon"><div class="sq"></div><span>Заметки</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="instr-step">
+      <div class="instr-num">04</div>
+      <div class="instr-copy">
+        <h3>Первый запуск — регистрация</h3>
+        <p>При самом первом открытии приложение попросит указать ФИО и должность. Это нужно сделать только один раз на устройстве — в дальнейшем данные подставляются автоматически.</p>
+      </div>
+      <div class="mini-phone">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="mini-body" style="padding-top:26px;">
+            <div class="mini-brand"><span class="dot2"></span>ЭлектроОптима</div>
+            <div class="mini-title" style="font-size:15px;">Регистрация</div>
+            <div class="mini-field-cap">ФИО</div>
+            <div class="mini-field-val" style="background:#fff;border-radius:7px;padding:6px 8px;">Муртазин Рамиль...</div>
+            <div class="mini-field-cap">Должность</div>
+            <div class="mini-field-val" style="background:#fff;border-radius:7px;padding:6px 8px;">Электромонтёр</div>
+          </div>
+          <div class="mini-btn">Продолжить</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="instr-step">
+      <div class="instr-num">05</div>
+      <div class="instr-copy">
+        <h3>Заполните заказ-наряд</h3>
+        <p>Дата, номер заказа, тип и подтип оборудования (или ручной ввод для «Прочих»), описание операции и время выполнения — каждый шаг на отдельном экране, назад можно вернуться в любой момент.</p>
+      </div>
+      <div class="mini-phone">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="mini-nav"><div class="t">Операция</div><div class="mini-track"><span style="width:75%"></span></div></div>
+          <div class="mini-body">
+            <div class="mini-brand"><span class="dot2"></span>ЭлектроОптима</div>
+            <div class="mini-title" style="font-size:15px;">Операция</div>
+            <div class="mini-card" style="padding:8px 10px;">
+              <div style="font-size:8px;color:var(--secondary);margin-bottom:4px;">Описание операции</div>
+              <div style="font-size:10.5px;color:var(--ink);">Электромонтаж БКТП</div>
+            </div>
+          </div>
+          <div class="mini-btn">Далее</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="instr-step">
+      <div class="instr-num">06</div>
+      <div class="instr-copy">
+        <h3>Проверьте и подтвердите</h3>
+        <p>Финальный экран показывает все введённые данные одним списком. После «Подтвердить» строка уходит в Google Таблицу — обычно это занимает меньше секунды.</p>
+      </div>
+      <div class="mini-phone">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="mini-nav"><div class="t">Проверка</div><div class="mini-track"><span style="width:95%"></span></div></div>
+          <div class="mini-body">
+            <div class="mini-brand"><span class="dot2"></span>ЭлектроОптима</div>
+            <div class="mini-title" style="font-size:15px;">Проверьте данные</div>
+            <div class="mini-card">
+              <div class="mini-row"><span>Исполнитель</span><span>Муртазин Р.Н.</span></div>
+              <div class="mini-row"><span>Дата</span><span>11.08.2026</span></div>
+              <div class="mini-row"><span>Заказ</span><span>7024</span></div>
+              <div class="mini-row"><span>Время</span><span>2,5 часа</span></div>
+            </div>
+          </div>
+          <div class="mini-btn">Подтвердить</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="instr-step">
+      <div class="instr-num">07</div>
+      <div class="instr-copy">
+        <h3>Ещё операция или завершить</h3>
+        <p>Если по этому же заказ-наряду нужно добавить ещё одну операцию — кнопка «Ещё операция» возвращает к вводу номера заказа, без повторного ввода ФИО и даты. «Завершить» — возврат к чистой форме для нового заказ-наряда.</p>
+      </div>
+      <div class="mini-phone">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="mini-body" style="padding-top:40px;">
+            <div class="mini-brand" style="justify-content:center;"><span class="dot2"></span>ЭлектроОптима</div>
+            <div class="mini-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5L10 17.5L19 7" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="mini-done-title">Операция добавлена</div>
+            <div class="mini-done-sub">Есть ещё операции по этому заказу?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= РЕЗУЛЬТАТ В ТАБЛИЦЕ ================= -->
+<section id="result">
+  <div class="wrap">
+    <div class="eyebrow">Конечный результат</div>
+    <h2 class="section-title">Всё сразу в Google Таблице</h2>
+    <p class="section-sub">Каждое подтверждение в приложении добавляет новую строку — руководитель видит данные в таблице сразу, без ожидания отчётов.</p>
+    <div class="sheet-wrap">
+      <div class="sheet-topbar"><span class="g-ic"></span><span class="name">Заказ-наряд — Google Таблицы</span></div>
+      <div class="sheet-scroll">
+        <table class="sheet">
+          <tr><th>Фамилия</th><th>Дата</th><th>Заказ</th><th>Оборудование</th><th>Операция</th><th>Время</th><th>Заполнил (ФИО)</th><th>Время записи</th></tr>
+          <tr><td>Муртазин Р.Н.</td><td>11.08.2026</td><td>7024</td><td>БКТП</td><td>Электромонтаж БКТП</td><td>2,5 часа</td><td>Муртазин Рамиль Нурмохаметович</td><td>11.08.2026 14:32:10</td></tr>
+          <tr><td>Муртазин Р.Н.</td><td>11.08.2026</td><td>7024</td><td>ЩРНН</td><td>Подключение кабеля</td><td>1 час</td><td>Муртазин Рамиль Нурмохаметович</td><td>11.08.2026 14:41:52</td></tr>
+          <tr><td>Сафин А.В.</td><td>11.08.2026</td><td>6692.1 ЦРП-2</td><td>КСО</td><td>Наладка защиты</td><td>3 часа</td><td>Сафин Артур Вадимович</td><td>11.08.2026 16:05:03</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ПЛАНЫ РАЗВИТИЯ ================= -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="roadmap">
+      <div class="eyebrow">Дальнейшее развитие</div>
+      <h2 class="section-title">Приложение будет расти вместе с процессом</h2>
+      <p style="color:rgba(255,255,255,0.7);font-size:15px;max-width:640px;">Текущая версия закрывает базовую задачу — быстрый и точный сбор данных. Она спроектирована так, чтобы дальше наращивать функциональность без переделки с нуля.</p>
+      <div class="roadmap-grid">
+        <div class="roadmap-card">
+          <div class="stage">Следующий этап</div>
+          <h3>Прослеживание каждой операции</h3>
+          <p>Каждая строка получит статус и историю изменений — кто, когда и что внёс, с возможностью проверки и корректировки задним числом.</p>
+        </div>
+        <div class="roadmap-card">
+          <div class="stage">Далее</div>
+          <h3>Мониторинг сборки оборудования</h3>
+          <p>Связка операций в единый процесс сборки конкретной единицы оборудования — руководитель сможет видеть готовность в реальном времени, а не только список выполненных работ.</p>
+        </div>
+        <div class="roadmap-card">
+          <div class="stage">В перспективе</div>
+          <h3>Отчёты и дашборды</h3>
+          <p>Сводная аналитика по сотрудникам, заказам и оборудованию прямо на основе накопленных данных — без ручной сборки отчётов.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= БРЕНД ================= -->
+<section id="brand">
+  <div class="wrap">
+    <div class="brand-note">
+      <div class="swatch-row">
+        <div class="swatch" style="background:#2EA9E8;"></div>
+        <div class="swatch" style="background:#2E3A47;"></div>
+      </div>
+      <div>
+        <h3 style="font-size:15.5px;font-weight:700;margin-bottom:4px;">Оформлено в фирменных цветах компании</h3>
+        <p style="font-size:13.5px;color:var(--secondary);">Голубой и графитовый — те же цвета, что и в логотипе «ЭлектроОптима». Иконка приложения, интерфейс и эта презентация используют единую палитру бренда.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© ЭлектроОптима — приложение «Заказ-наряд». <a href="https://ramillm-hub.github.io/app_zakaz_naryad/" style="color:var(--accent);text-decoration:none;">Открыть приложение</a></div>
 </footer>
 
-<script src="script.js"></script>
 </body>
 </html>
